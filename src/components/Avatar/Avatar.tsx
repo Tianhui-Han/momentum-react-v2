@@ -49,19 +49,19 @@ const Avatar = (props: Props, ref: RefObject<HTMLButtonElement>) => {
 
   const avatarLabels = [];
 
-  if(mainLabel){
+  if (mainLabel) {
     avatarLabels.push(mainLabel);
   }
 
-  if(presence && presenceLabel){
+  if (presence && presenceLabel) {
     avatarLabels.push(presenceLabel);
   }
 
-  if(isTyping && typingLabel){
+  if (isTyping && typingLabel) {
     avatarLabels.push(typingLabel);
   }
 
-  if(extraLabel){
+  if (extraLabel) {
     avatarLabels.push(extraLabel);
   }
 
@@ -71,14 +71,14 @@ const Avatar = (props: Props, ref: RefObject<HTMLButtonElement>) => {
   const hasPresence = !!presenceIcon;
   // If there is a case where the child element needs to be read by the SR, group role is used, otherwise img role is used
   const containerRole = hasPresence ? 'group' : 'img';
-  
+
   const content = (
     <div
       className={classnames(STYLE.wrapper, className)}
       data-size={size}
       data-color={color}
       aria-label={onPress ? undefined : containerAriaLabel}
-      role={containerRole}
+      role={onPress ? undefined : containerRole}
       {...(!onPress && { ...rest })}
     >
       {!imageLoaded && !icon && initialsText && (
@@ -88,7 +88,7 @@ const Avatar = (props: Props, ref: RefObject<HTMLButtonElement>) => {
       {src && (
         <img
           src={src}
-          alt=''
+          alt=""
           onLoad={handleOnLoad}
           onError={handleOnError}
           className={classnames(STYLE.wrapperChildren, { [STYLE.imageHidden]: !imageLoaded })}
@@ -116,7 +116,10 @@ const Avatar = (props: Props, ref: RefObject<HTMLButtonElement>) => {
       )}
       {/* //TODO: Temporary fix for typing animation. This should be re-implemented */}
       {isTyping && (
-        <span className={classnames(STYLE.wrapperChildren, STYLE.animationWrapper)} aria-hidden='true'>
+        <span
+          className={classnames(STYLE.wrapperChildren, STYLE.animationWrapper)}
+          aria-hidden="true"
+        >
           <div style={{ transform: 'scale(0.4)' }}>
             <Loading />
           </div>
